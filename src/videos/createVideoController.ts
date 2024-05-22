@@ -1,7 +1,11 @@
 import { Response, Request } from "express";
 import { OutputErrorsType } from "../input-output-types/output-errors-type";
 import { db } from "../db/db";
-import { InputVideoType, Resolutions } from "../input-output-types/video-types";
+import {
+  InputVideoType,
+  Resolutions,
+  OutputVideoType,
+} from "../input-output-types/video-types";
 
 const inputValidation = (video: InputVideoType) => {
   const errors: OutputErrorsType = {
@@ -23,7 +27,7 @@ const inputValidation = (video: InputVideoType) => {
 
 export const createVideoController = (
   req: Request<any, any, InputVideoType>,
-  res: Response<any /*OutputVideoType*/ | OutputErrorsType>
+  res: Response<any, OutputVideoType | OutputErrorsType>
 ) => {
   const errors = inputValidation(req.body);
   if (errors.errorsMessages.length) {

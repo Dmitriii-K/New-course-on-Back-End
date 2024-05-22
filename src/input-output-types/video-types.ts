@@ -15,10 +15,11 @@ export type ResolutionsString = keyof typeof Resolutions;
 // const z = Resolutions['P144']
 
 export type OutputVideoType = {
+  // ****** SomeVideo  **********
   id: number;
   title: string;
   author: string;
-  canBeDownloaded: boolean;
+  canBeDownloaded: true;
   minAgeRestriction: null;
   createdAt: string;
   publicationDate: string;
@@ -26,7 +27,17 @@ export type OutputVideoType = {
 };
 
 export type InputVideoType = {
+  // ******* CreateVideoType  *********
   title: string;
   author: string;
   availableResolution: Resolutions[];
+};
+
+export type UpdateVideoType = {
+  title: string;
+  author: string;
+  availableResolution: Resolutions[];
+  canBeDownloaded: true;
+  minAgeRestriction: 18;
+  publicationDate: string;
 };
