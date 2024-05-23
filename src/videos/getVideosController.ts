@@ -7,7 +7,7 @@ import {
 
 export const getVideosController = (
   req: Request,
-  res: Response<any, OutputVideoType>
+  res: Response<OutputVideoType[]> // получаем в ответе типизированное видео
 ) => {
   const videos = db.videos; // получаем видео из базы данных
 

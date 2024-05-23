@@ -1,4 +1,5 @@
-// import {VideoDBType} from './video-db-type'
+//import {VideoDBType} from './video-db-type'
+import { Resolutions } from "../input-output-types/video-types";
 
 export type DBType = {
   // типизация базы данных (что мы будем в ней хранить)

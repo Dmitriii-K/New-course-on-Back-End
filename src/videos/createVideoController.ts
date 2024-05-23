@@ -6,43 +6,36 @@ import {
   Resolutions,
   OutputVideoType,
 } from "../input-output-types/video-types";
-
-const inputValidation = (video: InputVideoType) => {
-  const errors: OutputErrorsType = {
-    // объект для сбора ошибок
-    errorsMessages: [],
-  };
-  // ...
-  if (
-    !Array.isArray(video.availableResolution) ||
-    video.availableResolution.find((p) => !Resolutions[p])
-  ) {
-    errors.errorsMessages.push({
-      message: "error!!!!",
-      field: "availableResolution",
-    });
-  }
-  return errors;
-};
+import { inputValidation } from "./inputValidation";
 
 export const createVideoController = (
   req: Request<any, any, InputVideoType>,
-  res: Response<any, OutputVideoType | OutputErrorsType>
+  res: Response<any /*OutputVideoType | OutputErrorsType*/>
 ) => {
   const errors = inputValidation(req.body);
   if (errors.errorsMessages.length) {
     // если есть ошибки - отправляем ошибки
-    res.status(400).json(errors);
+    res.status(400).json(errors); // если тип видео не соответствует заданным значениям
     return;
   }
 
+const nowDate = new Date()
+const plusOneDay = // nowDate + 1 day
   // если всё ок - добавляем видео
-  const newVideo: any /*VideoDBType*/ = {
+  const newVideo /*VideoType */= {
     ...req.body,
     id: Date.now() + Math.random(),
-    // ...
+    title: "String",
+    author: "string",
+    canBeDownloaded: true,
+    minAgeRestriction: null,
+    createdAt: nowDate.toISOString,
+    publicationDate: 
+    availableResolutions: Resolutions,
   };
-  db.videos = [...db.videos, newVideo];
+  db.videos.push(newVideo);
 
   res.status(201).json(newVideo);
 };
+
+
