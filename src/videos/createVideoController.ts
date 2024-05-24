@@ -13,16 +13,16 @@ export const createVideoController = (
   res: Response<any /*OutputVideoType | OutputErrorsType*/>
 ) => {
   const errors = inputValidation(req.body);
-  if (errors.errorsMessages.length) {
+  if (errors?.errorsMessages.length) {
     // если есть ошибки - отправляем ошибки
     res.status(400).json(errors); // если тип видео не соответствует заданным значениям
     return;
   }
 
-const nowDate = new Date()
-const plusOneDay = // nowDate + 1 day
+  const nowDate = new Date();
+  const plusOneDay = nowDate.setDate(nowDate.getDate() + 1);
   // если всё ок - добавляем видео
-  const newVideo /*VideoType */= {
+  const newVideo /*VideoType */ = {
     ...req.body,
     id: Date.now() + Math.random(),
     title: "String",
@@ -30,12 +30,10 @@ const plusOneDay = // nowDate + 1 day
     canBeDownloaded: true,
     minAgeRestriction: null,
     createdAt: nowDate.toISOString,
-    publicationDate: 
+    publicationDate: plusOneDay,
     availableResolutions: Resolutions,
   };
   db.videos.push(newVideo);
 
   res.status(201).json(newVideo);
 };
-
-

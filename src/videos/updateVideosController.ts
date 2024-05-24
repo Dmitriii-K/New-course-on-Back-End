@@ -20,12 +20,12 @@ export const updateVideosController = (
       return;
     }
     const errors = updateValidation(req.body); // если есть ошибки в типизации- отправляем ошибки
-    if (errors.errorsMessages.length) {
+    if (errors?.errorsMessages.length) {
       res.status(400).json(errors); // если тип видео не соответствует заданным значениям
       return;
     }
     // если все ок обновляем видео
     video.body = req.body;
-    res.status(204).json(video); // без содержания
+    res.status(204); // без содержания
   }
 };

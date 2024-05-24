@@ -11,7 +11,11 @@ export const inputValidation = (video: InputVideoType) => {
     errorsMessages: [],
   };
   // ...
-  if (typeof video.title !== "srting" || video.title.length > 40) {
+  if (
+    !video?.title ||
+    typeof video.title !== "string" ||
+    video.title.length > 40
+  ) {
     errors.errorsMessages.push({
       message: "error!!!!",
       field: "title",

@@ -12,10 +12,12 @@ export const updateValidation = (video: UpdateVideoType) => {
     errorsMessages: [],
   };
   // ...
-  video = db.videos;
-  const isTitle = typeof video.body.title === "string";
+  const minAgeRestriction = video?.minAgeRestriction;
+  const canBeDownloaded = video.canBeDownloaded;
+  const publicationDate = video.publicationDate;
+
   const isAuthorString = typeof video.author === "string";
-  if (!isAuthorString || video.author.length > 20 || isTitle > 40) {
+  if (!isAuthorString || video.author.length > 20 || video.title.length > 40) {
     errors.errorsMessages.push({
       message: "error!!!!",
       field: "title and author",

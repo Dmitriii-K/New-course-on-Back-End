@@ -39,6 +39,6 @@ export type UpdateVideoType = {
   author: string;
   availableResolution: Resolutions[];
   canBeDownloaded: false;
-  minAgeRestriction: 18;
+  minAgeRestriction: number;
   publicationDate: string;
 };
