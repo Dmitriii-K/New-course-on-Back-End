@@ -15,40 +15,56 @@ export const updateValidation = (video: UpdateVideoType) => {
   const minAgeRestriction = video?.minAgeRestriction;
   const canBeDownloaded = video.canBeDownloaded;
   const publicationDate = video.publicationDate;
+  const videoTitle = video.title;
 
   const isAuthorString = typeof video.author === "string";
-  if (!isAuthorString || video.author.length > 20 || video.title.length > 40) {
+  if (!isAuthorString || video.author.length > 20) {
     errors?.errorsMessages.push({
-      message: "error!!!!",
-      field: "title and author",
+      message: `not the right author`,
+      field: "author",
     });
-  }
-  if (minAgeRestriction < 18) {
-    errors?.errorsMessages.push({
-      message: "error!!!!",
-      field: "min age restriction",
-    });
-  }
-  if (canBeDownloaded !== false) {
-    errors?.errorsMessages.push({
-      message: "error!!!!",
-      field: "can be downloaded",
-    });
-    if (publicationDate !== "string") {
+
+    if (
+      typeof video.title !== "string" ||
+      video.title.length > 40 ||
+      videoTitle === null ||
+      !videoTitle
+    ) {
       errors?.errorsMessages.push({
-        message: "error!!!!",
-        field: "publication date",
+        message: `should return error if passed body is incorrect`,
+        field: "title",
       });
-      if (
-        !Array.isArray(video.availableResolution) ||
-        video.availableResolution.find((p) => !Resolutions[p])
-      ) {
+    }
+    if (minAgeRestriction > 18 || minAgeRestriction < 1) {
+      errors?.errorsMessages.push({
+        message: `error!!!! minAgeRestriction must be < 18, yor minAgeRestrictio: ${minAgeRestriction}`,
+        field: "minAgeRestriction",
+      });
+    }
+    if (
+      typeof canBeDownloaded !== "boolean" ||
+      typeof canBeDownloaded === "string"
+    ) {
+      errors?.errorsMessages.push({
+        message: `some boolean discription`,
+        field: "canBeDownloaded",
+      });
+      if (publicationDate !== "string") {
         errors?.errorsMessages.push({
-          message: "error!!!!",
-          field: "available resolution",
+          message: `some date just a string`,
+          field: "publicationDate",
         });
+        if (
+          !Array.isArray(video.availableResolutions) ||
+          video.availableResolutions.find((p) => !Resolutions[p])
+        ) {
+          errors?.errorsMessages.push({
+            message: `choose the correct format`,
+            field: "availableResolutions",
+          });
+        }
+        return errors;
       }
-      return errors;
     }
   }
 };

@@ -30,15 +30,16 @@ export type InputVideoType = {
   // ******* CreateVideoType req *********
   title: string;
   author: string;
-  availableResolution: Resolutions[];
+  availableResolutions: Resolutions[];
+  publicationDate?: string;
 };
 
 export type UpdateVideoType = {
   // обновляем видео согласно типизации
   title: string;
   author: string;
-  availableResolution: Resolutions[];
-  canBeDownloaded: false;
+  availableResolutions: Resolutions[];
+  canBeDownloaded: boolean;
   minAgeRestriction: number;
   publicationDate: string;
 };

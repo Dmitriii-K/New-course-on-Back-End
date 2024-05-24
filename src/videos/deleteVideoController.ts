@@ -5,19 +5,19 @@ export const deleteVideoController = (
   req: Request,
   res: Response<any /*OutputVideoType*/>
 ) => {
-  for (let i = 0; i < db.videos.length; i++) {
-    const video = db.videos[i];
-    if (video === +req.params.id) {
-      video.splice(i, 1);
-      res.status(204); // если id видео находится удаляем его
-      return;
-    }
+  //
+  const id = +req.params.id;
+  const deleteVideo = db.videos.filter((v) => v.id !== id);
+  if (deleteVideo.length < db.videos.length) {
+    db.videos = deleteVideo;
+    res.sendStatus(204);
+  } else {
+    res.sendStatus(404);
   }
-  res.status(404); // если id видео не существуем выводим ошибку
 };
 
 export const deleteDatabase = (req: Request, res: Response) => {
   db.videos = [];
-  res.status(204);
+  res.sendStatus(204);
   console.log("All data is deleted");
 };

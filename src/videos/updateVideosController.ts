@@ -12,20 +12,30 @@ export const updateVideosController = (
   req: Request<any, any, UpdateVideoType>,
   res: Response<OutputVideoType | OutputErrorsType>
 ) => {
+  let foundVideo;
   for (let i = 0; i < db.videos.length; i++) {
     // если видео не найдено выдаем ошибку
     const video = db.videos[i];
-    if (video === !req.params.id) {
-      res.sendStatus(404);
-      return;
+    if (video.id.toString() === req.params.id) {
+      foundVideo = video;
     }
-    const errors = updateValidation(req.body); // если есть ошибки в типизации- отправляем ошибки
-    if (errors?.errorsMessages.length) {
-      res.status(400).json(errors); // если тип видео не соответствует заданным значениям
-      return;
-    }
-    // если все ок обновляем видео
-    video.body = req.body;
-    res.status(204); // без содержания
   }
+
+  if (!foundVideo) {
+    return res.sendStatus(404);
+  }
+  const errors = updateValidation(req.body); // если есть ошибки в типизации- отправляем ошибки
+  if (errors?.errorsMessages.length) {
+    res.status(400).json(errors); // если тип видео не соответствует заданным значениям
+    return;
+  }
+  // если все ок обновляем видео
+  foundVideo.title = req.body.title;
+  foundVideo.author = req.body.author;
+  foundVideo.canBeDownloaded = req.body.canBeDownloaded;
+  foundVideo.minAgeRestriction = req.body.minAgeRestriction;
+  foundVideo.publicationDate = req.body.publicationDate;
+  foundVideo.availableResolutions = req.body.availableResolutions;
+  res.sendStatus(204); // без содержания
+  return;
 };

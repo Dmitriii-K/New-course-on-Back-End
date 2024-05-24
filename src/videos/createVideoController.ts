@@ -7,6 +7,7 @@ import {
   OutputVideoType,
 } from "../input-output-types/video-types";
 import { inputValidation } from "./inputValidation";
+import { addDays } from "date-fns";
 
 export const createVideoController = (
   req: Request<any, any, InputVideoType>,
@@ -20,19 +21,20 @@ export const createVideoController = (
   }
 
   const nowDate = new Date();
-  const plusOneDay = nowDate.setDate(nowDate.getDate() + 1);
+  //const plusOneDay = nowDate.setDate(nowDate.getDate() + 1).;
+  const plusOneDay = addDays(nowDate, 1).toISOString();
   // если всё ок - добавляем видео
   const newVideo /*VideoType */ = {
-    ...req.body,
     id: Date.now() + Math.random(),
-    title: "String",
-    author: "string",
+    title: req.body.title,
+    author: req.body.author,
     canBeDownloaded: false,
-    minAgeRestriction: Number,
-    createdAt: nowDate.toISOString,
-    publicationDate: plusOneDay,
-    availableResolutions: Resolutions,
+    minAgeRestriction: null,
+    createdAt: nowDate.toISOString(),
+    publicationDate: req.body.publicationDate ?? plusOneDay,
+    availableResolutions: req.body.availableResolutions,
   };
+
   db.videos.push(newVideo);
 
   res.status(201).json(newVideo);

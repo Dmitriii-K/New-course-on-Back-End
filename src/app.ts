@@ -15,4 +15,4 @@ app.get("/", (req, res) => {
 
 //app.get(SETTINGS.PATH.VIDEOS, getVideosController);
 app.use(SETTINGS.PATH.VIDEOS, videosRouter);
-app.use("testing", deleteRouter);
+app.use("/testing", deleteRouter);
