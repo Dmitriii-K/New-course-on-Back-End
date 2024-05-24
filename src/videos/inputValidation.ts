@@ -31,7 +31,7 @@ export const inputValidation = (video: InputVideoType) => {
       ) {
         errors?.errorsMessages.push({
           message: "error!!!!",
-          field: "availableResolution",
+          field: "available resolution",
         });
       }
       return errors;

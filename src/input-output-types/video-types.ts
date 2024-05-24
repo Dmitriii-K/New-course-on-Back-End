@@ -16,7 +16,7 @@ export type ResolutionsString = keyof typeof Resolutions;
 
 export type OutputVideoType = {
   // ****** Типизированное видео res **********
-  id: number;
+  id: Number;
   title: string;
   author: string;
   canBeDownloaded: false;

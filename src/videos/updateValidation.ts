@@ -26,18 +26,18 @@ export const updateValidation = (video: UpdateVideoType) => {
   if (minAgeRestriction < 18) {
     errors?.errorsMessages.push({
       message: "error!!!!",
-      field: "age restriction",
+      field: "min age restriction",
     });
   }
   if (canBeDownloaded !== false) {
     errors?.errorsMessages.push({
       message: "error!!!!",
-      field: "age restriction",
+      field: "can be downloaded",
     });
     if (publicationDate !== "string") {
       errors?.errorsMessages.push({
         message: "error!!!!",
-        field: "age restriction",
+        field: "publication date",
       });
       if (
         !Array.isArray(video.availableResolution) ||
@@ -45,7 +45,7 @@ export const updateValidation = (video: UpdateVideoType) => {
       ) {
         errors?.errorsMessages.push({
           message: "error!!!!",
-          field: "availableResolution",
+          field: "available resolution",
         });
       }
       return errors;
