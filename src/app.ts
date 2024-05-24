@@ -13,9 +13,5 @@ app.get("/", (req, res) => {
   res.status(200).json({ version: "1.0" });
 });
 
-app.delete("./testing/all-data", (req, res) => {
-  res.status(204);
-  console.log("All data is deleted");
-});
 //app.get(SETTINGS.PATH.VIDEOS, getVideosController);
 app.use(SETTINGS.PATH.VIDEOS, videosRouter);

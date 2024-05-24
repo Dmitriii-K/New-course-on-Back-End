@@ -15,3 +15,9 @@ export const deleteVideoController = (
   }
   res.status(404); // если id видео не существуем выводим ошибку
 };
+
+export const deleteDatabase = (req: Request, res: Response) => {
+  db.videos = [];
+  res.status(204);
+  console.log("All data is deleted");
+};
