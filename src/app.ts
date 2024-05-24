@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { SETTINGS } from "./settings";
-import { videosRouter } from "./videos/index";
+import { videosRouter, deleteRouter } from "./videos/index";
 //import { getVideosController } from "./videos/getVideosController";
 
 export const app = express(); // создать приложение
@@ -15,3 +15,4 @@ app.get("/", (req, res) => {
 
 //app.get(SETTINGS.PATH.VIDEOS, getVideosController);
 app.use(SETTINGS.PATH.VIDEOS, videosRouter);
+app.use("testing", deleteRouter);
