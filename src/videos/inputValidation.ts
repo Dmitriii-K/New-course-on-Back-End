@@ -16,12 +16,12 @@ export const inputValidation = (video: InputVideoType) => {
     typeof video.title !== "string" ||
     video.title.length > 40
   ) {
-    errors.errorsMessages.push({
+    errors?.errorsMessages.push({
       message: "error!!!!",
       field: "title",
     });
     if (typeof video.author !== "string" || video.author.length > 20) {
-      errors.errorsMessages.push({
+      errors?.errorsMessages.push({
         message: "error!!!!",
         field: "author",
       });
@@ -29,7 +29,7 @@ export const inputValidation = (video: InputVideoType) => {
         !Array.isArray(video.availableResolution) ||
         video.availableResolution.find((p) => !Resolutions[p])
       ) {
-        errors.errorsMessages.push({
+        errors?.errorsMessages.push({
           message: "error!!!!",
           field: "availableResolution",
         });

@@ -18,24 +18,24 @@ export const updateValidation = (video: UpdateVideoType) => {
 
   const isAuthorString = typeof video.author === "string";
   if (!isAuthorString || video.author.length > 20 || video.title.length > 40) {
-    errors.errorsMessages.push({
+    errors?.errorsMessages.push({
       message: "error!!!!",
       field: "title and author",
     });
   }
   if (minAgeRestriction < 18) {
-    errors.errorsMessages.push({
+    errors?.errorsMessages.push({
       message: "error!!!!",
       field: "age restriction",
     });
   }
   if (canBeDownloaded !== false) {
-    errors.errorsMessages.push({
+    errors?.errorsMessages.push({
       message: "error!!!!",
       field: "age restriction",
     });
     if (publicationDate !== "string") {
-      errors.errorsMessages.push({
+      errors?.errorsMessages.push({
         message: "error!!!!",
         field: "age restriction",
       });
@@ -43,7 +43,7 @@ export const updateValidation = (video: UpdateVideoType) => {
         !Array.isArray(video.availableResolution) ||
         video.availableResolution.find((p) => !Resolutions[p])
       ) {
-        errors.errorsMessages.push({
+        errors?.errorsMessages.push({
           message: "error!!!!",
           field: "availableResolution",
         });
