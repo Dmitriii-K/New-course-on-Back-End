@@ -18,53 +18,48 @@ export const updateValidation = (video: UpdateVideoType) => {
   const videoTitle = video.title;
 
   const isAuthorString = typeof video.author === "string";
+
   if (!isAuthorString || video.author.length > 20) {
     errors?.errorsMessages.push({
       message: `not the right author`,
       field: "author",
     });
-
-    if (
-      typeof video.title !== "string" ||
-      video.title.length > 40 ||
-      videoTitle === null ||
-      !videoTitle
-    ) {
-      errors?.errorsMessages.push({
-        message: `should return error if passed body is incorrect`,
-        field: "title",
-      });
-    }
-    if (minAgeRestriction > 18 || minAgeRestriction < 1) {
-      errors?.errorsMessages.push({
-        message: `error!!!! minAgeRestriction must be < 18, yor minAgeRestrictio: ${minAgeRestriction}`,
-        field: "minAgeRestriction",
-      });
-    }
-    if (
-      typeof canBeDownloaded !== "boolean" ||
-      typeof canBeDownloaded === "string"
-    ) {
-      errors?.errorsMessages.push({
-        message: `some boolean discription`,
-        field: "canBeDownloaded",
-      });
-      if (publicationDate !== "string") {
-        errors?.errorsMessages.push({
-          message: `some date just a string`,
-          field: "publicationDate",
-        });
-        if (
-          !Array.isArray(video.availableResolutions) ||
-          video.availableResolutions.find((p) => !Resolutions[p])
-        ) {
-          errors?.errorsMessages.push({
-            message: `choose the correct format`,
-            field: "availableResolutions",
-          });
-        }
-        return errors;
-      }
-    }
   }
+  if (typeof video.title !== "string" || video.title.length > 40) {
+    errors?.errorsMessages.push({
+      message: `should return error if passed body is incorrect`,
+      field: "title",
+    });
+  }
+  if (minAgeRestriction > 18 || minAgeRestriction < 1) {
+    errors?.errorsMessages.push({
+      message: `error!!!! minAgeRestriction must be < 18, yor minAgeRestrictio: ${minAgeRestriction}`,
+      field: "minAgeRestriction",
+    });
+  }
+  if (
+    typeof canBeDownloaded !== "boolean" ||
+    typeof canBeDownloaded === "string"
+  ) {
+    errors?.errorsMessages.push({
+      message: `some boolean discription`,
+      field: "canBeDownloaded",
+    });
+  }
+  if (typeof publicationDate !== "string") {
+    errors?.errorsMessages.push({
+      message: `some date just a string`,
+      field: "publicationDate",
+    });
+  }
+  if (
+    !Array.isArray(video.availableResolutions) ||
+    video.availableResolutions.find((p) => !Resolutions[p])
+  ) {
+    errors?.errorsMessages.push({
+      message: `choose the correct format`,
+      field: "availableResolutions",
+    });
+  }
+  return errors;
 };

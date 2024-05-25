@@ -31,7 +31,7 @@ export type InputVideoType = {
   title: string;
   author: string;
   availableResolutions: Resolutions[];
-  publicationDate?: string;
+  publicationDate: string;
 };
 
 export type UpdateVideoType = {

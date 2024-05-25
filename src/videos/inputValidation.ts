@@ -18,29 +18,24 @@ export const inputValidation = (video: InputVideoType) => {
       message: `not the right author`,
       field: "author",
     });
-
-    if (
-      videoTitle === null ||
-      !videoTitle ||
-      !(typeof video.title === "string") ||
-      video.title.length > 40
-    ) {
-      errors?.errorsMessages.push({
-        message: `should return error if passed body is incorrect`,
-        field: "title",
-      });
-      //
-      //
-      if (
-        !Array.isArray(video.availableResolutions) ||
-        video.availableResolutions.find((p) => !Resolutions[p])
-      ) {
-        errors?.errorsMessages.push({
-          message: `choose the correct format from: availableResolutions`,
-          field: "availableResolutions",
-        });
-      }
-      return errors;
-    }
   }
+
+  if (typeof video.title !== "string" || video.title.length > 40) {
+    errors?.errorsMessages.push({
+      message: `should return error if passed body is incorrect`,
+      field: "title",
+    });
+  }
+  //
+
+  if (
+    !Array.isArray(video.availableResolutions) ||
+    video.availableResolutions.find((p) => !Resolutions[p])
+  ) {
+    errors?.errorsMessages.push({
+      message: `choose the correct format from: availableResolutions`,
+      field: "availableResolutions",
+    });
+  }
+  return errors;
 };
